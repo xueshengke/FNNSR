@@ -1,0 +1,924 @@
+layer {
+  name: "data"
+  type: "HDF5Data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TRAIN
+  }
+  hdf5_data_param {
+    source: "examples/FNNSR/train_data_x4.txt"
+    batch_size: 64
+  }
+}
+layer {
+  name: "data"
+  type: "HDF5Data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TEST
+  }
+  hdf5_data_param {
+    source: "examples/FNNSR/test_data_x4.txt"
+    batch_size: 2
+  }
+}
+layer {
+  name: "ElementWiseProduct1"
+  type: "ElementWiseProduct"
+  bottom: "data"
+  top: "ElementWiseProduct1"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution1"
+  type: "Convolution"
+  bottom: "ElementWiseProduct1"
+  top: "Convolution1"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "ElementWiseProduct2"
+  type: "ElementWiseProduct"
+  bottom: "data"
+  top: "ElementWiseProduct2"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution2"
+  type: "Convolution"
+  bottom: "ElementWiseProduct2"
+  top: "Convolution2"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise1"
+  type: "Eltwise"
+  bottom: "Convolution1"
+  bottom: "Convolution2"
+  top: "Eltwise1"
+}
+layer {
+  name: "ElementWiseProduct3"
+  type: "ElementWiseProduct"
+  bottom: "data"
+  top: "ElementWiseProduct3"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution3"
+  type: "Convolution"
+  bottom: "ElementWiseProduct3"
+  top: "Convolution3"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise2"
+  type: "Eltwise"
+  bottom: "Eltwise1"
+  bottom: "Convolution3"
+  top: "Eltwise2"
+}
+layer {
+  name: "ElementWiseProduct4"
+  type: "ElementWiseProduct"
+  bottom: "data"
+  top: "ElementWiseProduct4"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution4"
+  type: "Convolution"
+  bottom: "ElementWiseProduct4"
+  top: "Convolution4"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise3"
+  type: "Eltwise"
+  bottom: "Eltwise2"
+  bottom: "Convolution4"
+  top: "Eltwise3"
+}
+layer {
+  name: "ElementWiseProduct5"
+  type: "ElementWiseProduct"
+  bottom: "data"
+  top: "ElementWiseProduct5"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution5"
+  type: "Convolution"
+  bottom: "ElementWiseProduct5"
+  top: "Convolution5"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise4"
+  type: "Eltwise"
+  bottom: "Eltwise3"
+  bottom: "Convolution5"
+  top: "Eltwise4"
+}
+layer {
+  name: "ElementWiseProduct6"
+  type: "ElementWiseProduct"
+  bottom: "Eltwise4"
+  top: "ElementWiseProduct6"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution6"
+  type: "Convolution"
+  bottom: "ElementWiseProduct6"
+  top: "Convolution6"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "ElementWiseProduct7"
+  type: "ElementWiseProduct"
+  bottom: "Eltwise4"
+  top: "ElementWiseProduct7"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution7"
+  type: "Convolution"
+  bottom: "ElementWiseProduct7"
+  top: "Convolution7"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise5"
+  type: "Eltwise"
+  bottom: "Convolution6"
+  bottom: "Convolution7"
+  top: "Eltwise5"
+}
+layer {
+  name: "ElementWiseProduct8"
+  type: "ElementWiseProduct"
+  bottom: "Eltwise4"
+  top: "ElementWiseProduct8"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution8"
+  type: "Convolution"
+  bottom: "ElementWiseProduct8"
+  top: "Convolution8"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise6"
+  type: "Eltwise"
+  bottom: "Eltwise5"
+  bottom: "Convolution8"
+  top: "Eltwise6"
+}
+layer {
+  name: "ElementWiseProduct9"
+  type: "ElementWiseProduct"
+  bottom: "Eltwise4"
+  top: "ElementWiseProduct9"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution9"
+  type: "Convolution"
+  bottom: "ElementWiseProduct9"
+  top: "Convolution9"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise7"
+  type: "Eltwise"
+  bottom: "Eltwise6"
+  bottom: "Convolution9"
+  top: "Eltwise7"
+}
+layer {
+  name: "ElementWiseProduct10"
+  type: "ElementWiseProduct"
+  bottom: "Eltwise4"
+  top: "ElementWiseProduct10"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution10"
+  type: "Convolution"
+  bottom: "ElementWiseProduct10"
+  top: "Convolution10"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise8"
+  type: "Eltwise"
+  bottom: "Eltwise7"
+  bottom: "Convolution10"
+  top: "Eltwise8"
+}
+layer {
+  name: "ElementWiseProduct11"
+  type: "ElementWiseProduct"
+  bottom: "Eltwise8"
+  top: "ElementWiseProduct11"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution11"
+  type: "Convolution"
+  bottom: "ElementWiseProduct11"
+  top: "Convolution11"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "ElementWiseProduct12"
+  type: "ElementWiseProduct"
+  bottom: "Eltwise8"
+  top: "ElementWiseProduct12"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution12"
+  type: "Convolution"
+  bottom: "ElementWiseProduct12"
+  top: "Convolution12"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise9"
+  type: "Eltwise"
+  bottom: "Convolution11"
+  bottom: "Convolution12"
+  top: "Eltwise9"
+}
+layer {
+  name: "ElementWiseProduct13"
+  type: "ElementWiseProduct"
+  bottom: "Eltwise8"
+  top: "ElementWiseProduct13"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution13"
+  type: "Convolution"
+  bottom: "ElementWiseProduct13"
+  top: "Convolution13"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise10"
+  type: "Eltwise"
+  bottom: "Eltwise9"
+  bottom: "Convolution13"
+  top: "Eltwise10"
+}
+layer {
+  name: "ElementWiseProduct14"
+  type: "ElementWiseProduct"
+  bottom: "Eltwise8"
+  top: "ElementWiseProduct14"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution14"
+  type: "Convolution"
+  bottom: "ElementWiseProduct14"
+  top: "Convolution14"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise11"
+  type: "Eltwise"
+  bottom: "Eltwise10"
+  bottom: "Convolution14"
+  top: "Eltwise11"
+}
+layer {
+  name: "ElementWiseProduct15"
+  type: "ElementWiseProduct"
+  bottom: "Eltwise8"
+  top: "ElementWiseProduct15"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution15"
+  type: "Convolution"
+  bottom: "ElementWiseProduct15"
+  top: "Convolution15"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "layer_in"
+  type: "Eltwise"
+  bottom: "Eltwise11"
+  bottom: "Convolution15"
+  top: "layer_in"
+}
+layer {
+  name: "ElementWiseProduct16"
+  type: "ElementWiseProduct"
+  bottom: "layer_in"
+  top: "ElementWiseProduct16"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution16"
+  type: "Convolution"
+  bottom: "ElementWiseProduct16"
+  top: "Convolution16"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "ElementWiseProduct17"
+  type: "ElementWiseProduct"
+  bottom: "layer_in"
+  top: "ElementWiseProduct17"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution17"
+  type: "Convolution"
+  bottom: "ElementWiseProduct17"
+  top: "Convolution17"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise12"
+  type: "Eltwise"
+  bottom: "Convolution16"
+  bottom: "Convolution17"
+  top: "Eltwise12"
+}
+layer {
+  name: "ElementWiseProduct18"
+  type: "ElementWiseProduct"
+  bottom: "layer_in"
+  top: "ElementWiseProduct18"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution18"
+  type: "Convolution"
+  bottom: "ElementWiseProduct18"
+  top: "Convolution18"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise13"
+  type: "Eltwise"
+  bottom: "Eltwise12"
+  bottom: "Convolution18"
+  top: "Eltwise13"
+}
+layer {
+  name: "ElementWiseProduct19"
+  type: "ElementWiseProduct"
+  bottom: "layer_in"
+  top: "ElementWiseProduct19"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "Convolution19"
+  type: "Convolution"
+  bottom: "ElementWiseProduct19"
+  top: "Convolution19"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "Eltwise14"
+  type: "Eltwise"
+  bottom: "Eltwise13"
+  bottom: "Convolution19"
+  top: "Eltwise14"
+}
+layer {
+  name: "ElementWiseProduct20"
+  type: "ElementWiseProduct"
+  bottom: "layer_in"
+  top: "ElementWiseProduct20"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "model"
+  type: "Convolution"
+  bottom: "ElementWiseProduct20"
+  top: "model"
+  convolution_param {
+    num_output: 1
+    bias_term: false
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    dilation: 1
+  }
+}
+layer {
+  name: "layer_out"
+  type: "Eltwise"
+  bottom: "Eltwise14"
+  bottom: "model"
+  top: "layer_out"
+}
+layer {
+  name: "Eltwise15"
+  type: "Eltwise"
+  bottom: "Eltwise4"
+  bottom: "Eltwise8"
+  top: "Eltwise15"
+}
+layer {
+  name: "Eltwise16"
+  type: "Eltwise"
+  bottom: "Eltwise15"
+  bottom: "layer_in"
+  top: "Eltwise16"
+}
+layer {
+  name: "S"
+  type: "Eltwise"
+  bottom: "Eltwise16"
+  bottom: "layer_out"
+  top: "S"
+}
+layer {
+  name: "P"
+  type: "ElementWiseProduct"
+  bottom: "S"
+  top: "P"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.10000000149
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "loss"
+  type: "EuclideanLoss"
+  bottom: "P"
+  bottom: "label"
+  top: "loss"
+}
+

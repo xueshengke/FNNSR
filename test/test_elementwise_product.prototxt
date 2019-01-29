@@ -1,0 +1,32 @@
+name: "FNNSR"
+layer {
+  name: "data"
+  type: "Input"
+  top: "data"
+  input_param {
+    shape {
+      dim: 1
+      dim: 1
+      dim: 480
+      dim: 360
+    }
+  }
+}
+layer {
+  name: "model"
+  type: "ElementWiseProduct"
+  bottom: "data"
+  top: "model"
+  elementwise_product_param {
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.5
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+
